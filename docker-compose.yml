@@ -13,7 +13,7 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql
     healthcheck:
       test:
         [
@@ -55,7 +55,7 @@ services:
     command: >
       sh -c "
         bundle install &&
-        rails db:migrate &&
+        rails db:prepare &&
         rails db:seed &&
         rails server -b 0.0.0.0
       "
