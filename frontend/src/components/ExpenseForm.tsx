@@ -6,6 +6,7 @@ import React from "react";
 import { Category, ExpenseFormData } from "../types";
 import { TextField, SelectBox, Button } from "../vibes";
 import { useExpenseForm } from "../hooks/useExpenseForm";
+import { formatDate } from "../utils/expenseUtils";
 
 interface ExpenseFormProps {
   categories: Category[];
@@ -44,6 +45,8 @@ export function ExpenseForm({
     value: category.name,
     label: category.name,
   }));
+
+  const maxDate = formatDate(new Date());
 
   return (
     <form onSubmit={handleSubmit} style={formStyle}>
@@ -84,6 +87,7 @@ export function ExpenseForm({
         label="Date"
         type="date"
         value={formData.date}
+        max={maxDate}
         onChange={(e) => handleChange("date", e.target.value)}
         error={errors.date}
         fullWidth
